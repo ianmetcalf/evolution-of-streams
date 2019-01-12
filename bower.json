@@ -1,0 +1,42 @@
+{
+  "name": "evolution-of-streams",
+  "version": "1.0.0",
+  "description": "Presentation on the evolution of streams in Node.js",
+  "homepage": "http://metcalfbuilt.com/evolution-of-streams/",
+  "authors": ["Ian Metcalf"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianmetcalf/evolution-of-streams.git"
+  },
+  "dependencies": {
+    "codemirror": "latest",
+    "headjs": "latest",
+    "klipse": "latest",
+    "reveal.js": "latest",
+    "source-sans-pro": "latest"
+  },
+  "exportsOverride": {
+    "codemirror": {
+      "js": [
+        "keymap/vim.js"
+      ],
+      "css": [
+        "theme/monokai.css"
+      ]
+    },
+    "reveal.js": {
+      "js": [
+        "js/reveal.js"
+      ],
+      "css": [
+        "css/reveal.css",
+        "css/print/*.css"
+      ]
+    },
+    "source-sans-pro": [
+      "css/source-sans-pro.css",
+      "fonts/source-sans-pro/*"
+    ]
+  }
+}
