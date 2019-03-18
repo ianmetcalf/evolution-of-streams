@@ -28,6 +28,245 @@
             <small>ian metcalf</small>
           </p>
         </section>
+
+        <section>
+          <section>
+            <h3>What is a Stream</h3>
+          </section>
+
+          <section>
+            <h3>What are they used for</h3>
+          </section>
+
+          <section>
+            <h3>Confession</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>A Little History</h3>
+          </section>
+
+          <section>
+            <h3>Primordial Soup</h3>
+
+            <p class="fragment">Early days of node</p>
+            <p class="fragment"><code>http, fs, tty</code></p>
+            <p class="fragment"><code>sys.pump()</code></p>
+          </section>
+
+          <section>
+            <h3>Node gets a Stream module</h3>
+
+            <p class="fragment"><code>class Stream extends EventEmitter {}</code></p>
+            <p class="fragment"><code>emits: data, end, error</code></p>
+            <p class="fragment"><code>has a pipe() method</code></p>
+          </section>
+
+          <section>
+            <h3>Shortcomings</h3>
+
+            <p class="fragment">Starts flowing immediately</p>
+            <p class="fragment">Can't stop the flow</p>
+            <p class="fragment">Risk of dropping data chunks</p>
+          </section>
+
+          <section>
+            <h3>Streams 2</h3>
+          </section>
+
+          <section>
+            <h3>Streams <strike>2</strike> 3</h3>
+          </section>
+
+          <section>
+            <h3>Present day Streams</h3>
+
+            <p class="fragment">Backwards compatible</p>
+            <p class="fragment">Addresses shortcomings</p>
+            <p class="fragment">Complexity</p>
+          </section>
+
+          <section>
+            <h3>3rd Party Modules</h3>
+
+            <p class="fragment"><strike>event-stream</strike></p>
+            <p class="fragment"><strike>through</strike></p>
+            <p class="fragment">stream-handbook</p>
+            <p class="fragment">readable-stream</p>
+            <p class="fragment"><strike>through2</strike></p>
+            <p class="fragment">mississippi</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Stream Basics</h3>
+          </section>
+
+          <section>
+            <h3>Readable</h3>
+
+            <klipse-snippet>
+              const hello = new stream.Readable({
+                read(size) {
+                  this.push('hello');
+                  this.push(null);
+                },
+              });
+
+              hello.read().toString();
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>Transform</h3>
+
+            <klipse-snippet>
+              const upper = new stream.Transform({
+                transform(chunk, encoding, callback) {
+                  this.push(chunk.toString().toUpperCase());
+                  callback();
+                },
+              });
+
+              upper.write('hello');
+
+              upper.read().toString();
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>Writable</h3>
+
+            <klipse-snippet data-async-code="true">
+              const log = new stream.Writable({
+                write(chunk, encoding, callback) {
+                  console.log(chunk.toString());
+                  callback();
+                },
+              });
+
+              log.write('hello');
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>Factory</h3>
+
+            <klipse-snippet>
+              function createHelloStream() {
+                return new stream.Readable({
+                  read(size) {
+                    this.push('hello');
+                    this.push(null);
+                  },
+                });
+              }
+
+              const hello = createHelloStream();
+
+              hello.read().toString();
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>Subclass</h3>
+
+            <klipse-snippet>
+              class HelloStream extends stream.Readable {
+                _read(size) {
+                  this.push('hello');
+                  this.push(null);
+                }
+              }
+
+              const hello = new HelloStream();
+
+              hello.read().toString();
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>finished()</h3>
+
+            <klipse-snippet data-async-code="true">
+              const hello = new stream.Readable({
+                read(size) {
+                  this.push('hello');
+                  this.push(null);
+                },
+              });
+
+              stream.finished(hello, err => console.log(err || 'all done'));
+
+              hello.read().toString();
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>pipeline()</h3>
+
+            <klipse-snippet data-async-code="true">
+              const hello = new stream.Readable({
+                read(size) {
+                  this.push('hello');
+                  this.push(null);
+                },
+              });
+
+              const log = new stream.Writable({
+                write(chunk, encoding, callback) {
+                  console.log(chunk.toString());
+                  callback();
+                },
+              });
+
+              stream.pipeline(hello, log, err => console.log(err || 'all done'));
+            </klipse-snippet>
+          </section>
+
+          <section>
+            <h3>Object Mode</h3>
+
+            <klipse-snippet data-async-code="true">
+              const hello = new stream.Readable({
+                objectMode: true,
+                read(size) {
+                  this.push({message: 'hello'});
+                  this.push(null);
+                },
+              });
+
+              const log = new stream.Writable({
+                objectMode: true,
+                write(chunk, encoding, callback) {
+                  console.log(chunk);
+                  callback();
+                },
+              });
+
+              stream.pipeline(hello, log, err => console.log(err || 'all done'));
+            </klipse-snippet>
+          </section>
+        </section>
+
+        <section>
+          <h3>Live Code</h3>
+        </section>
+
+        <section>
+          <h3>Takeaways</h3>
+
+          <p class="fragment">Avoid outdated npm modules</p>
+          <p class="fragment">Use pipeline instead of pipe</p>
+          <p class="fragment">Keep an eye out for async iterators</p>
+        </section>
+
+        <section>
+          <h3>Questions</h3>
+        </section>
       </div>
     </div>
 

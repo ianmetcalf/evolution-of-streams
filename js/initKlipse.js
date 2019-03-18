@@ -3,6 +3,7 @@ const VIM_MODE = /vim/i.test(window.location.search);
 function initKlipse(el) {
   const attrs = {
     'data-external-libs': [
+      'build/stream.js',
     ].join(','),
   };
 

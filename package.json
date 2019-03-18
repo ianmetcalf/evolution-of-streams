@@ -13,6 +13,7 @@
     "url": "https://github.com/ianmetcalf/evolution-of-streams/issues"
   },
   "scripts": {
+    "build:stream": "browserify --standalone stream --outfile build/stream.js js/stream.js",
     "bower": "grunt bower",
     "start": "grunt serve"
   },
@@ -21,6 +22,7 @@
     "grunt": "^1.0.3",
     "grunt-bower-task": "^0.5.0",
     "grunt-contrib-connect": "^2.0.0",
-    "grunt-contrib-watch": "^1.1.0"
+    "grunt-contrib-watch": "^1.1.0",
+    "readable-stream": "^3.2.0"
   }
 }
